@@ -1,0 +1,49 @@
+<!doctype html>
+<!-- RECIPE: big_statement — one bold one-liner, typography-dominant. Best for a punchy
+claim/manifesto with no supporting data. Full-bleed Flux background.
+SLOTS (output/slots.json):
+  scalars: BRAND, TAG, EYEBROW, STATEMENT (HTML; wrap 1-3 key words in
+           <span style="color:ACCENTHEX">…</span>), SUB, FOOTNOTE,
+           BG, FG, ACCENT, MUTED, FONT_FAMILY, GOOGLE_FONT
+RASTER injected by render.py. -->
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family={{GOOGLE_FONT}}:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:1080px; height:1350px; }
+  .canvas { position:relative; width:1080px; height:1350px; overflow:hidden;
+    font-family:{{FONT_FAMILY}}; background:{{BG}}; }
+  .bg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .tint { position:absolute; inset:0; background:
+    linear-gradient(180deg, {{BG}}F2 0%, {{BG}}B3 40%, {{BG}}73 62%, {{BG}}F2 100%); }
+  .wrap { position:absolute; inset:0; padding:64px 60px; display:flex; flex-direction:column; }
+  .top { display:flex; justify-content:space-between; align-items:baseline; }
+  .brand { color:{{FG}}; font-weight:900; font-size:32px; letter-spacing:-1px; }
+  .brand .dot { color:{{ACCENT}}; }
+  .tag { font-family:'JetBrains Mono',monospace; font-size:16px; color:{{MUTED}}; letter-spacing:1px; }
+  .mid { margin-top:auto; }
+  .eyebrow { font-family:'JetBrains Mono',monospace; font-size:18px; letter-spacing:3px; color:{{MUTED}}; text-transform:uppercase; }
+  .statement { color:{{FG}}; font-weight:900; font-size:84px; line-height:1.0; letter-spacing:-2.5px; margin-top:18px; }
+  .sub { color:{{MUTED}}; font-size:26px; line-height:1.4; margin-top:22px; max-width:840px; }
+  .foot { margin-top:auto; }
+  .footnote { font-family:'JetBrains Mono',monospace; font-size:15px; color:{{MUTED}}; }
+</style>
+</head>
+<body>
+  <div class="canvas">
+    <img class="bg" src="{{RASTER}}">
+    <div class="tint"></div>
+    <div class="wrap">
+      <div class="top"><div class="brand">{{BRAND}}<span class="dot">.</span></div><div class="tag">{{TAG}}</div></div>
+      <div class="mid">
+        <div class="eyebrow">{{EYEBROW}}</div>
+        <div class="statement">{{STATEMENT}}</div>
+        <div class="sub">{{SUB}}</div>
+      </div>
+      <div class="foot"><div class="footnote">{{FOOTNOTE}}</div></div>
+    </div>
+  </div>
+</body>
+</html>

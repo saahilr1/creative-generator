@@ -1,0 +1,69 @@
+<!doctype html>
+<!-- RECIPE: product_ingredients — bespoke. A full-bleed product shot (Flux) on warm cream,
+with the key actives listed clean + prominent on the right, the "nothing else" ethos as the
+headline, and the wordmark quiet at bottom. Ingredients are the hero of the message; the
+product is the visual focus. Uses the brand's own font throughout (no mono/tech look) — good
+for warm / editorial / consumer brands whose guidelines avoid a code-terminal aesthetic.
+SLOTS (output/slots.json):
+  scalars: BRAND, TAG, EYEBROW, HEADLINE (HTML; accent via <span class="acc">…</span>),
+           ETHOS, FOOTNOTE, BG, FG, ACCENT, MUTED, FONT_FAMILY, GOOGLE_FONT
+  INGREDIENTS: array of {name, note}
+RASTER injected by render.py (full-bleed focal product image). -->
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family={{GOOGLE_FONT}}:wght@400;500;600;700;800;900&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:1080px; height:1350px; }
+  .canvas { position:relative; width:1080px; height:1350px; overflow:hidden;
+    font-family:{{FONT_FAMILY}}; background:{{BG}}; }
+  .bg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  /* warm cream scrim: keep product visible top-left, calm the right column for the list */
+  .scrim { position:absolute; inset:0; background:
+    linear-gradient(105deg, {{BG}}26 0%, {{BG}}26 38%, {{BG}}D9 62%, {{BG}}F2 100%); }
+  .vscrim { position:absolute; inset:0; background:
+    linear-gradient(180deg, {{BG}}80 0%, {{BG}}40 28%, {{BG}}4D 68%, {{BG}}F2 100%); }
+  .wrap { position:absolute; inset:0; padding:70px 64px; display:flex; flex-direction:column; }
+  .top { display:flex; justify-content:space-between; align-items:baseline; }
+  .brand { color:{{FG}}; font-weight:800; font-size:30px; letter-spacing:0.5px; }
+  .tag { font-size:18px; color:{{MUTED}}; letter-spacing:0.5px; font-style:italic; }
+  .content { margin-top:auto; }
+  .eyebrow { font-size:19px; letter-spacing:5px; color:{{ACCENT}}; text-transform:uppercase; font-weight:600; }
+  .headline { color:{{FG}}; font-weight:800; font-size:62px; line-height:1.04; letter-spacing:-1.5px; margin-top:16px; max-width:620px; }
+  .headline .acc { color:{{ACCENT}}; }
+  .ethos { color:{{FG}}; font-size:25px; line-height:1.4; margin-top:18px; max-width:560px; font-style:italic; opacity:0.85; }
+  .rule { width:88px; height:3px; background:{{ACCENT}}; border-radius:3px; margin:30px 0 22px; }
+  .label { font-size:18px; letter-spacing:4px; color:{{MUTED}}; text-transform:uppercase; font-weight:600; margin-bottom:16px; }
+  .ings { display:flex; flex-direction:column; gap:14px; }
+  .ing { display:flex; align-items:baseline; gap:18px; border-bottom:1px solid {{FG}}1F; padding-bottom:13px; }
+  .ing .dot { width:9px; height:9px; border-radius:50%; background:{{ACCENT}}; flex:0 0 auto; transform:translateY(-3px); }
+  .ing .name { color:{{FG}}; font-weight:700; font-size:31px; letter-spacing:-0.4px; }
+  .ing .note { color:{{MUTED}}; font-size:20px; font-style:italic; margin-left:auto; text-align:right; }
+  .foot { margin-top:34px; display:flex; justify-content:space-between; align-items:flex-end; }
+  .foot .note { font-size:17px; color:{{MUTED}}; max-width:540px; line-height:1.4; font-style:italic; }
+  .foot .mark { color:{{FG}}; font-size:23px; font-weight:700; letter-spacing:0.5px; }
+</style>
+</head>
+<body>
+  <div class="canvas">
+    <img class="bg" src="{{RASTER}}">
+    <div class="vscrim"></div>
+    <div class="scrim"></div>
+    <div class="wrap">
+      <div class="top"><div class="brand">{{BRAND}}</div><div class="tag">{{TAG}}</div></div>
+      <div class="content">
+        <div class="eyebrow">{{EYEBROW}}</div>
+        <div class="headline">{{HEADLINE}}</div>
+        <div class="ethos">{{ETHOS}}</div>
+        <div class="rule"></div>
+        <div class="label">What's inside</div>
+        <div class="ings">
+          {{#INGREDIENTS}}<div class="ing"><div class="dot"></div><div class="name">{{name}}</div><div class="note">{{note}}</div></div>{{/INGREDIENTS}}
+        </div>
+        <div class="foot"><div class="note">{{FOOTNOTE}}</div><div class="mark">{{BRAND}}</div></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

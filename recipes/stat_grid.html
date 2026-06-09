@@ -1,0 +1,58 @@
+<!doctype html>
+<!-- RECIPE: stat_grid — several hard numbers. Optional hero stat + a grid of stat cards.
+SLOTS (output/slots.json):
+  scalars: BRAND, TAG, HEADLINE, SUB, SOURCES, BG, FG, ACCENT, MUTED, FONT_FAMILY, GOOGLE_FONT
+  HERO: 0-or-1 array of {num,label,reveal}   (omit/empty for no hero)
+  STATS: array of {num,label,line}           (2-6 cards)
+RASTER injected by render.py. -->
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family={{GOOGLE_FONT}}:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:1080px; height:1350px; }
+  .canvas { position:relative; width:1080px; height:1350px; overflow:hidden;
+    font-family:{{FONT_FAMILY}}; background:{{BG}}; }
+  .bg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .tint { position:absolute; inset:0; background:
+    linear-gradient(180deg, {{BG}}CC 0%, {{BG}}8C 45%, {{BG}}B3 100%); }
+  .wrap { position:absolute; inset:0; padding:62px 60px; display:flex; flex-direction:column; }
+  .brand { display:flex; align-items:baseline; gap:15px; }
+  .brand .name { color:{{FG}}; font-weight:900; font-size:56px; letter-spacing:-1.8px; }
+  .brand .name .dot { color:{{ACCENT}}; }
+  .brand .tag { font-family:'JetBrains Mono',monospace; font-size:16px; color:{{MUTED}}; letter-spacing:1px; }
+  .headline { color:{{FG}}; font-weight:800; font-size:48px; line-height:1.04; letter-spacing:-1.3px; margin-top:24px; }
+  .sub { color:{{MUTED}}; font-size:22px; margin-top:10px; }
+  .hero { display:flex; align-items:center; gap:26px; margin-top:30px;
+    padding-bottom:26px; border-bottom:2px solid {{ACCENT}}80; }
+  .hero .num { font-weight:900; font-size:124px; line-height:0.8; color:{{ACCENT}}; letter-spacing:-4px; }
+  .hero .lab { color:{{FG}}; font-weight:800; font-size:34px; letter-spacing:-0.5px; }
+  .hero .rev { font-family:'JetBrains Mono',monospace; color:{{MUTED}}; font-size:19px; line-height:1.35; margin-top:9px; max-width:420px; }
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:28px; }
+  .card { border:1px solid {{FG}}1F; background:{{BG}}E6; border-radius:18px; padding:24px; }
+  .card .num { color:{{FG}}; font-weight:800; font-size:44px; letter-spacing:-1px; }
+  .card .lab { color:{{FG}}; font-weight:600; font-size:21px; margin-top:5px; }
+  .card .ln { font-family:'JetBrains Mono',monospace; color:{{MUTED}}; font-size:15px; line-height:1.4; margin-top:11px; }
+  .foot { margin-top:auto; }
+  .foot .src { font-family:'JetBrains Mono',monospace; font-size:14px; color:{{MUTED}}; }
+</style>
+</head>
+<body>
+  <div class="canvas">
+    <img class="bg" src="{{RASTER}}">
+    <div class="tint"></div>
+    <div class="wrap">
+      <div class="brand"><div class="name">{{BRAND}}<span class="dot">.</span></div><div class="tag">{{TAG}}</div></div>
+      <div class="headline">{{HEADLINE}}</div>
+      <div class="sub">{{SUB}}</div>
+      {{#HERO}}<div class="hero"><div class="num">{{num}}</div>
+        <div><div class="lab">{{label}}</div><div class="rev">{{reveal}}</div></div></div>{{/HERO}}
+      <div class="grid">
+        {{#STATS}}<div class="card"><div class="num">{{num}}</div><div class="lab">{{label}}</div><div class="ln">{{line}}</div></div>{{/STATS}}
+      </div>
+      <div class="foot"><div class="src">{{SOURCES}}</div></div>
+    </div>
+  </div>
+</body>
+</html>

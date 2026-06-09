@@ -1,0 +1,18 @@
+# Brand defaults — copy this folder to brands/<your_brand>/ and edit.
+# Claude reads this for visual consistency. The voice/visual brief lives in GUIDELINES.md.
+
+brand_name: "Your Brand"
+brandbar_text: "yourbrand.com"   # the wordmark/label shown on assets
+
+google_font: "Inter"             # any Google Font; one family, vary by weight
+font_stack: "Inter, system-ui, sans-serif"
+
+palette:
+  bg: "#0f1115"                  # background
+  fg: "#f5f5f5"                  # main text
+  accent: "#ff5d2e"             # highlight — used sparingly
+  muted: "#9aa0a6"              # secondary text
+
+default_aspect_ratio: "4:5"
+layout_heuristics: "generous whitespace; one focal element; clear hierarchy; no clutter"
+raster_style_suffix: "clean, high quality, on-brand"   # appended to every Flux background prompt

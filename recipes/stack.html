@@ -1,0 +1,54 @@
+<!doctype html>
+<!-- RECIPE: stack — a layered system / pipeline / process shown as stacked bands.
+SLOTS (output/slots.json):
+  scalars: BRAND, TAG, HEADLINE, SUB, TOP_FLOW, BOTTOM_FLOW, FOOTNOTE,
+           BG, FG, ACCENT, MUTED, FONT_FAMILY, GOOGLE_FONT
+  BANDS: array of {idx, title, detail}  (list order = top→bottom as displayed)
+RASTER injected by render.py. -->
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family={{GOOGLE_FONT}}:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:1080px; height:1350px; }
+  .canvas { position:relative; width:1080px; height:1350px; overflow:hidden;
+    font-family:{{FONT_FAMILY}}; background:{{BG}}; }
+  .bg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .tint { position:absolute; inset:0; background:
+    linear-gradient(180deg, {{BG}}D9 0%, {{BG}}BF 55%, {{BG}}A6 100%); }
+  .wrap { position:absolute; inset:0; padding:62px 60px; display:flex; flex-direction:column; }
+  .brand { display:flex; align-items:baseline; gap:15px; }
+  .brand .name { color:{{FG}}; font-weight:900; font-size:50px; letter-spacing:-1.6px; }
+  .brand .name .dot { color:{{ACCENT}}; }
+  .brand .tag { font-family:'JetBrains Mono',monospace; font-size:16px; color:{{MUTED}}; letter-spacing:1px; }
+  .headline { color:{{FG}}; font-weight:800; font-size:50px; line-height:1.04; letter-spacing:-1.3px; margin-top:22px; }
+  .sub { color:{{MUTED}}; font-size:22px; margin-top:10px; }
+  .flow { font-family:'JetBrains Mono',monospace; font-size:16px; letter-spacing:2px; color:{{MUTED}}; text-transform:uppercase; margin:18px 0 8px; }
+  .stack { display:flex; flex-direction:column; gap:11px; }
+  .band { border:1px solid {{FG}}1A; background:{{FG}}0A; border-radius:14px; padding:18px 22px; display:flex; align-items:center; gap:20px; }
+  .band .idx { font-weight:800; font-size:30px; color:{{MUTED}}; min-width:48px; }
+  .band .title { color:{{FG}}; font-weight:700; font-size:26px; letter-spacing:-0.3px; }
+  .band .detail { font-family:'JetBrains Mono',monospace; color:{{MUTED}}; font-size:16px; margin-top:5px; }
+  .foot { margin-top:auto; display:flex; justify-content:space-between; align-items:flex-end; }
+  .foot .note { font-family:'JetBrains Mono',monospace; font-size:15px; color:{{MUTED}}; max-width:560px; line-height:1.4; }
+</style>
+</head>
+<body>
+  <div class="canvas">
+    <img class="bg" src="{{RASTER}}">
+    <div class="tint"></div>
+    <div class="wrap">
+      <div class="brand"><div class="name">{{BRAND}}<span class="dot">.</span></div><div class="tag">{{TAG}}</div></div>
+      <div class="headline">{{HEADLINE}}</div>
+      <div class="sub">{{SUB}}</div>
+      {{#TOP_FLOW_BLOCK}}<div class="flow">{{.}}</div>{{/TOP_FLOW_BLOCK}}
+      <div class="stack">
+        {{#BANDS}}<div class="band"><div class="idx">{{idx}}</div><div><div class="title">{{title}}</div><div class="detail">{{detail}}</div></div></div>{{/BANDS}}
+      </div>
+      {{#BOTTOM_FLOW_BLOCK}}<div class="flow">{{.}}</div>{{/BOTTOM_FLOW_BLOCK}}
+      <div class="foot"><div class="note">{{FOOTNOTE}}</div></div>
+    </div>
+  </div>
+</body>
+</html>

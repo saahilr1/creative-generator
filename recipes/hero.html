@@ -1,0 +1,50 @@
+<!doctype html>
+<!-- RECIPE: hero — a headline + short body over a strong full-bleed image. Image-led;
+best for a general hook with one supporting image.
+SLOTS (output/slots.json):
+  scalars: BRAND, TAG, EYEBROW, HEADLINE (HTML; accent via <span style="color:ACCENTHEX">…</span>),
+           BODY, FOOTNOTE, BG, FG, ACCENT, MUTED, FONT_FAMILY, GOOGLE_FONT
+RASTER injected by render.py (the Flux image is the focal element — make it strong). -->
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family={{GOOGLE_FONT}}:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:1080px; height:1350px; }
+  .canvas { position:relative; width:1080px; height:1350px; overflow:hidden;
+    font-family:{{FONT_FAMILY}}; background:{{BG}}; }
+  .bg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .scrim { position:absolute; inset:0; background:
+    linear-gradient(180deg, {{BG}}40 0%, {{BG}}1A 35%, {{BG}}D9 80%, {{BG}} 100%); }
+  .wrap { position:absolute; inset:0; padding:64px 60px; display:flex; flex-direction:column; }
+  .top { display:flex; justify-content:space-between; align-items:baseline; }
+  .brand { color:{{FG}}; font-weight:900; font-size:32px; letter-spacing:-1px; }
+  .brand .dot { color:{{ACCENT}}; }
+  .tag { font-family:'JetBrains Mono',monospace; font-size:16px; color:{{MUTED}}; letter-spacing:1px; }
+  .content { margin-top:auto; }
+  .eyebrow { font-family:'JetBrains Mono',monospace; font-size:18px; letter-spacing:3px; color:{{MUTED}}; text-transform:uppercase; }
+  .accentbar { width:96px; height:8px; background:{{ACCENT}}; border-radius:5px; margin:18px 0 22px; }
+  .headline { color:{{FG}}; font-weight:900; font-size:72px; line-height:1.02; letter-spacing:-2px; }
+  .body { color:{{MUTED}}; font-size:27px; line-height:1.4; margin-top:22px; max-width:840px; }
+  .foot { margin-top:30px; }
+  .footnote { font-family:'JetBrains Mono',monospace; font-size:15px; color:{{MUTED}}; }
+</style>
+</head>
+<body>
+  <div class="canvas">
+    <img class="bg" src="{{RASTER}}">
+    <div class="scrim"></div>
+    <div class="wrap">
+      <div class="top"><div class="brand">{{BRAND}}<span class="dot">.</span></div><div class="tag">{{TAG}}</div></div>
+      <div class="content">
+        <div class="eyebrow">{{EYEBROW}}</div>
+        <div class="accentbar"></div>
+        <div class="headline">{{HEADLINE}}</div>
+        <div class="body">{{BODY}}</div>
+        <div class="foot"><div class="footnote">{{FOOTNOTE}}</div></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

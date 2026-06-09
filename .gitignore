@@ -1,0 +1,22 @@
+.env
+.env.*
+!.env.example
+__pycache__/
+*.pyc
+.venv/
+venv/
+output/*
+!output/.gitkeep
+.DS_Store
+*.zip
+# brands: ship only the _example template + docs; real brand folders are user content
+brands/*
+!brands/_example/
+!brands/_example/**
+!brands/README.md
+!brands/ONBOARDING.md
+# eval: ship ONLY the README + CSV template; everything else (scores, logs, comparisons,
+# example images) is the user's local data — whitelist, don't blacklist.
+eval/*
+!eval/README.md
+!eval/calibration_scores.template.csv
